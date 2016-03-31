@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 let mongoose = require('mongoose'),
@@ -7,9 +5,8 @@ let mongoose = require('mongoose'),
 
 let	ActorSchema = new Schema({
 	name: String,
-	lastName: String,
 	country: String,
-	age: String
+	genre: String
 });
 
-module.exports = mongoose.model('Actor', ActorSchema);
+module.exports = mongoose.model('Participante', ParticipanteSchema);

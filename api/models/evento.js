@@ -5,12 +5,12 @@
 let mongoose = require('mongoose'),
 		Schema = mongoose.Schema;
 
-let	MovieSchema = new Schema({
-	name: String,
-	year: String,
-	genre: String,
-	actors: [{ name: String }]
+let	EventoSchema = new Schema({
+	lugar: String,
+	fecha: String,
+	hora: String,
+	participantes: String
+	
+	});
 
-});
-
-module.exports = mongoose.model('Movie', MovieSchema);
+module.exports = mongoose.model('Evento', EventoSchema);

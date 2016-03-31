@@ -2,117 +2,92 @@
 
 // server.js (Express 4.0)
 
-// BASE SETUP
-// ==============================================
-
-// call the packages we need
 let express = require('express'),
 		app = express(),
 		bodyParser = require('body-parser'),
 		mongoose = require('mongoose'),
-		dbURI = 'mongodb://localhost/test',
+		dbURI = 'mongodb://localhost/examen2',
 		port = process.env.PORT || 8080;
 
-// connect to mongodb
 mongoose.connect(dbURI);
 
-// 
-let Beer = require('./app/api/models/beer');
-let Movie= require('./app/api/models/movie');
-
+let Participante = require('./api/models/participante');
+let Evento= require('./api/models/evento');
 
 // DEFINE THE MIDDLEWARE FOR APP
-// ==============================================
-
-// configure app to use bodyParser()
-// this will let us get data from POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 // ROUTES
-// ==============================================
-
-// get an instance of the express router
 let apiRouter = express.Router();
-
-// test router
-// apiRouter.get('/', (req, res) => {
-// 	res.json({ message: 'welcome to out api' });
-// });
 
 // MIDDLEWARE to use for all requests
 apiRouter.use((req, res, next) => {
 	// do something before running routes
 	console.log('Happening before routes...');
-	next();   // don't stop here, go to next route
+	next();// don't stop here, go to next route
 });
 
-// routes 
 // generic root route of the api
 apiRouter.get('/', (req, res) => {
 	res.json({ message: 'Hello API!' });
 });
 
-// on routes that end in /beers
-apiRouter.route('/beers')
+apiRouter.route('/participantes')
 	// create a beer (http://localhost:8080/api/beers)
 	.post((req, res) => {
-		let beer = new Beer();
+		let participante = new Participante();
 
-		beer.name = req.body.name;
-		beer.type = req.body.type;
-		beer.country = req.body.country;
+		participante.name = req.body.name;
+		participante.country = req.body.country;
+		participante.genre = req.body.genre;
 
-		beer.save(err => {
+		participante.save(err => {
 			if (err) res.send(err);
-			res.json({ message: 'Beer created!' });
+			res.json({ message: 'Participante creado!' });
 		});
 	})
-	// get all beers (http://localhost:8080/api/beers)
+	// get all participants (http://localhost:8080/api/participantes)
 	.get((req, res) => {
-		Beer.find((err, beers) => {
+		Participante.find((err, participantes) => {
 			if (err) res.send(err);
-			res.json(beers);
+			res.json(participantes);
 		});
 	});
 
-// on routes that end in /beers/:beer_id
-apiRouter.route('/beers/:beer_id')
-	// get a beer by id (http://localhost:8080/api/beers/:beer_id)
+apiRouter.route('/participantes/:participant_id')
+	// get a beer by id (http://localhost:8080/api/participantes/:participant_id)
 	.get((req, res) => {
-		Beer.findById(req.params.beer_id, (err, beer) => {
+		Participante.findById(req.params.participant_id, (err, participant) => {
 			if (err) res.send(err);
-			res.json(beer);
+			res.json(participant);
 		});
 	})
-	// update a beer by id (http://localhost:8080/api/beers/:beer_id)
+
+	// update a participant by id (http://localhost:8080/api/participantes/:participant_id)
 	.put((req, res) => {
-		Beer.findById(req.params.beer_id, (err, beer) => {
+		Beer.findById(req.params.participant_id, (err, participant) => {
 			if (err) res.send(err);
 			// update info
-			beer.name = req.body.name;
-			beer.type = req.body.type;
-			beer.country = req.body.country;
+			participante.name = req.body.name;
+			participante.country = req.body.country;
+			participante.genre = req.body.genre;
 			// save beer
 			beer.save(err => {
 				if (err) res.send(err);
-				res.json({ message: 'Beer updated!' });
+				res.json({ message: 'Participant updated!' });
 			});
 		});
 	})
-	// delete a beer by id (http://localhost:8080/api/beers/:beer_id)
+
+	// delete a participant by id (http://localhost:8080/api/participantes/:participant_id)
 	.delete((req, res) => {
-		Beer.remove({ _id: req.params.beer_id }, (err, beer) => {
+		Beer.remove({ _id: req.params.participant_id }, (err, participant) => {
 			if (err) res.send(err);
 			res.json({ message: 'Successfully deleted!'});
 		});
 	});
 
-
-
-
-// routes -movies
 // generic root route of the api
 apiRouter.get('/', (req, res) => {
 	res.json({ message: 'Hello API!' });
