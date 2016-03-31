@@ -150,87 +150,18 @@ apiRouter.get('/', (req, res) => {
 });
 
 //**************---------------------------***********************--------------------------*******************---------------
-
-apiRouter.route('/movies')
-	// create a beer (http://localhost:8080/api/beers)
-	.post((req, res) => {
-			let movie = new Movie();
-			movie.name = req.body.name;
-			movie.actor = req.body.actor;
-			movie.actress = req.body.actress;
-			movie.save(err => {
-					if (err) res.send(err);
-						res.json({ message: 'Movie created!' });
-					});
-		})
-	// get all movies (http://localhost:8080/api/beers)
-		.get((req, res) => {
-			Movie.find((err, movies) => {
-					if (err) res.send(err);
-					res.json(movies);
-			});
-		});
-
-//actor and actreess aprox search
-apiRouter.route('/movies/actor/query')
-	.get((req,res)=> {
-		let actorString = req.query.actor;
-		Movie.find({"actor":{"$regex": actorString}},(err,movies) => {
-			if (err) res.send(err);
-			res.json(movies);
-		})
+// delete an event by id (http://eventos/participantsName/:name)
+apiRouter.get('/eventos/participantsName/:name', function(req, res) {
+		Evento.find({'participants': {'$regex': req.params.name}}, (err, event) => {
+		if (err) res.send(err);
+		res.json(event);
 	});
-
-apiRouter.route('/movies/actress/query')
-	.get((req,res)=> {
-	let actorString = req.query.actress;
-Movie.find({"actor":{"$regex": actorString}},(err,movies) => {
-	if (err) res.send(err);
-res.json(movies);
 })
-});
-
-// on routes that end in /movies/:beer_id
-apiRouter.route('/movies/:movie_id')
-	// get a movie by id (http://localhost:8080/api/movies/:movie_id)
-	.get((req, res) => {
-	Movie.findById(req.params.movie_id, (err, movie) => {
-	if (err) res.send(err);
-res.json(movie);
-});
-})
-// update a movie by id (http://localhost:8080/api/movies/:movie_id)
-.put((req, res) => {
-	Movie.findById(req.params.beer_id, (err, movie) => {
-	if (err) res.send(err);
-// update info
-movie.name = req.body.name;
-movie.actor = req.body.actor;
-movie.actress = req.body.actress;
-// save movie
-movie.save(err => {
-	if (err) res.send(err);
-res.json({ message: 'Movie updated!' });
-});
-});
-})
-// delete a movie by id (http://localhost:8080/api/movies/:movie_id)
-.delete((req, res) => {
-	Movie.remove({ _id: req.params.movie_id }, (err, movie) => {
-	if (err) res.send(err);
-res.json({ message: 'Successfully deleted!'});
-});
-});
-
-
 
 // register our routes
 // all routes will be prefixed with /api
 app.use('/api', apiRouter);
 
-
-
 // START THE SERVER
-// ==============================================
 app.listen(port);
 console.log('Magic happens on port ' + port);
