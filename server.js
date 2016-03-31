@@ -34,14 +34,12 @@ apiRouter.get('/', (req, res) => {
 });
 
 apiRouter.route('/participantes')
-	// create a beer (http://localhost:8080/api/beers)
+	// create a participant (http://localhost:8080/api/participantes)
 	.post((req, res) => {
 		let participante = new Participante();
-
 		participante.name = req.body.name;
 		participante.country = req.body.country;
 		participante.genre = req.body.genre;
-
 		participante.save(err => {
 			if (err) res.send(err);
 			res.json({ message: 'Participante creado!' });
@@ -56,7 +54,7 @@ apiRouter.route('/participantes')
 	});
 
 apiRouter.route('/participantes/:participant_id')
-	// get a beer by id (http://localhost:8080/api/participantes/:participant_id)
+	// get a participant by id (http://localhost:8080/api/participantes/:participant_id)
 	.get((req, res) => {
 		Participante.findById(req.params.participant_id, (err, participant) => {
 			if (err) res.send(err);
@@ -66,14 +64,12 @@ apiRouter.route('/participantes/:participant_id')
 
 	// update a participant by id (http://localhost:8080/api/participantes/:participant_id)
 	.put((req, res) => {
-		Beer.findById(req.params.participant_id, (err, participant) => {
+		Participante.findById(req.params.participant_id, (err, participant) => {
 			if (err) res.send(err);
-			// update info
-			participante.name = req.body.name;
-			participante.country = req.body.country;
-			participante.genre = req.body.genre;
-			// save beer
-			beer.save(err => {
+			participant.name = req.body.name;
+			participant.country = req.body.country;
+			participant.genre = req.body.genre;
+			participant.save(err => {
 				if (err) res.send(err);
 				res.json({ message: 'Participant updated!' });
 			});
@@ -82,7 +78,7 @@ apiRouter.route('/participantes/:participant_id')
 
 	// delete a participant by id (http://localhost:8080/api/participantes/:participant_id)
 	.delete((req, res) => {
-		Beer.remove({ _id: req.params.participant_id }, (err, participant) => {
+		Participante.remove({ _id: req.params.participant_id }, (err, participant) => {
 			if (err) res.send(err);
 			res.json({ message: 'Successfully deleted!'});
 		});
@@ -93,7 +89,68 @@ apiRouter.get('/', (req, res) => {
 	res.json({ message: 'Hello API!' });
 });
 
-// on routes that end in /beers
+//****************----------------*****************-----------------*****************--------------***************-----------------
+
+apiRouter.route('/eventos')
+	// create a event (http://localhost:8080/api/eventos)
+	.post((req, res) => {
+		let evento = new Evento();
+		evento.name = req.body.name;
+		evento.date = req.body.date;
+		evento.type = req.body.type;
+		evento.participants = req.body.participants;
+		evento.save(err => {
+			if (err) res.send(err);
+			res.json({ message: 'Evento creado!' });
+		});
+	})
+	// get all events (http://localhost:8080/api/eventos)
+	.get((req, res) => {
+		Evento.find((err, eventos) => {
+			if (err) res.send(err);
+			res.json(eventos);
+		});
+	});
+
+apiRouter.route('/eventos/:event_id')
+	// get a event by id (http://localhost:8080/api/events/:event_id)
+	.get((req, res) => {
+		Evento.findById(req.params.event_id, (err, event) => {
+			if (err) res.send(err);
+			res.json(event);
+		});
+	})
+
+	// update an event by id (http://localhost:8080/api/events/:event_id)
+	.put((req, res) => {
+		Evento.findById(req.params.event_id, (err, event) => {
+			if (err) res.send(err);
+			evento.name = req.body.name;
+			evento.date = req.body.date;
+			evento.type = req.body.type;
+			evento.participants = req.body.participants;
+			event.save(err => {
+				if (err) res.send(err);
+				res.json({ message: 'Event updated!' });
+			});
+		});
+	})
+
+	// delete an event by id (http://localhost:8080/api/events/:event_id)
+	.delete((req, res) => {
+		Evento.remove({ _id: req.params.event_id }, (err, event) => {
+			if (err) res.send(err);
+			res.json({ message: 'Successfully deleted!'});
+		});
+	});
+
+// generic root route of the api
+apiRouter.get('/', (req, res) => {
+	res.json({ message: 'Hello API!' });
+});
+
+//**************---------------------------***********************--------------------------*******************---------------
+
 apiRouter.route('/movies')
 	// create a beer (http://localhost:8080/api/beers)
 	.post((req, res) => {

@@ -3,7 +3,7 @@
 let mongoose = require('mongoose'),
 		Schema = mongoose.Schema;
 
-let	ActorSchema = new Schema({
+let	ParticipanteSchema = new Schema({
 	name: String,
 	country: String,
 	genre: String
