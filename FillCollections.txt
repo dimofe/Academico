@@ -1,0 +1,61 @@
+EVENTOS
+{
+    "name":"Todos juntos",
+    "date":"07/17/2012",
+    "type":"Danza",
+    "participants": ["Ballet Folclórico Mexican Tradition", "Mambo Dinámico", "Corazón Peruano"]
+}
+{
+    "name":"Todos juntos",
+    "date":"08/21/2014",
+    "type":"Danza",
+    "participants": ["Ballet Folclórico Mexican Tradition","Corazón Peruano"]
+}
+{
+    "name":"Todos juntos",
+    "date":"07/17/2012",
+    "type":"Danza",
+    "participants": ["Valle de Luna", "Mambo Dinámico","African American Dance Ensemble","Grupo de Danzas Folklóricas Raíces Andinas"]
+}
+{
+    "name":"Todos juntos",
+    "date":"07/19/2014",
+    "type":"Danza",
+    "participants": ["Valle de Luna", "Mambo Dinámico"]
+}
+{
+    "name":"Wave-Gotik-Treffen 2010",
+    "date":"04/29/2010",
+    "type":"Concierto",
+    "participants": ["Indukti", "RISHLOO"]
+}
+{
+    "name":"Midnight Sun World Tour",
+    "date":"07/02/2014",
+    "type":"Concierto",
+    "participants": ["Indukti", "RISHLOO"]
+}
+PARTICIPANTES
+{
+    "genre": "Gothic Metal Music",
+    "country": "Poland",
+    "name": "Un sun",
+}
+{
+    "genre": "Progressive Metal Music",
+    "country": "Poland",
+    "name": "Un sun",
+}
+{
+    "genre": "Industrial Metal Music",
+    "country": "Germany",
+    "name": "Rammstein",
+}
+{
+    "genre": "Industrial Metal Music",
+    "country": "Poland",
+    "name": "RISHLOO",
+}
+
+
+

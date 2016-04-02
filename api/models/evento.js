@@ -7,7 +7,7 @@ let	EventoSchema = new Schema({
 	name: String,
 	date: String,
 	type: String,
-	participants: String
+	participants: [String]
 
 	});
 

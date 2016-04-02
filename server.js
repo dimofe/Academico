@@ -91,7 +91,7 @@ apiRouter.get('/', (req, res) => {
 
 //****************----------------*****************-----------------*****************--------------***************-----------------
 
-apiRouter.route('/eventos')
+apiRouter.route('/events')
 	// create a event (http://localhost:8080/api/eventos)
 	.post((req, res) => {
 		let evento = new Evento();
@@ -112,7 +112,7 @@ apiRouter.route('/eventos')
 		});
 	});
 
-apiRouter.route('/eventos/:event_id')
+apiRouter.route('/events/:event_id')
 	// get a event by id (http://localhost:8080/api/events/:event_id)
 	.get((req, res) => {
 		Evento.findById(req.params.event_id, (err, event) => {
@@ -150,10 +150,19 @@ apiRouter.get('/', (req, res) => {
 });
 
 //**************---------------------------***********************--------------------------*******************---------------
-// delete an event by id (http://eventos/participantsName/:name)
-apiRouter.get('/eventos/participantsName/:name', function(req, res) {
+//Get events using participants approx. name
+//(http://events/participantsName/:name)
+apiRouter.get('/events/participantsName/:name', function(req, res) {
 		Evento.find({'participants': {'$regex': req.params.name}}, (err, event) => {
 		if (err) res.send(err);
+		res.json(event);
+	});
+})
+//Get events using participants complete name
+//(http://events/participants/:name)
+apiRouter.get('/events/participants/:name', function(req, res) {
+		Evento.find({'participants': req.params.name}, (err, event) => {
+	if (err) res.send(err);
 		res.json(event);
 	});
 })
